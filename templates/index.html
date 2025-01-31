@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>所有交易</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>日期</th>
+            <th>描述</th>
+            <th>類別</th>
+            <th>金額</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+        <tr>
+            <td>{{ transaction.date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ '收入' if transaction.category == '收入' else '-' }}{{ transaction.amount }}</td>
+            <td>
+                <a href="{{ url_for('edit_transaction', transaction_id=transaction.id) }}" class="btn btn-sm btn-primary">編輯</a>
+                <form action="{{ url_for('delete_transaction', transaction_id=transaction.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('確定要刪除這筆交易嗎？')">刪除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>總計: {{ total }}</h3>
+{% endblock %}
