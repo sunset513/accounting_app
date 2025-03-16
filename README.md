@@ -16,4 +16,5 @@ cd accounting_app
    docker build -t accounting_app .
 
 4. 運行 Docker 容器:
-docker run -d -p 5000:5000 accounting_app
+   ```bash
+   docker run -d -p 5000:5000 accounting_app
